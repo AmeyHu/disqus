@@ -37,17 +37,18 @@ class CommentForm(forms.ModelForm):
 
 @method_decorator(login_required, name='post')
 class DiscussionView(View):
+
     def get(self, request, post_id):
-        post = Post.objects.get_post_with_my_votes(post_id, 
+        post = Post.objects.get_post_with_my_votes(post_id,
                     request.user)
-        comments = Comment.objects.best_ones_first(post_id, 
+        comments = Comment.objects.best_ones_first(post_id,
                         request.user.id)
         form = CommentForm()
         context = {"post": post, "comments": comments, "form": form}
         return render(request, "discussion.html", context=context)
 
     def post(self, request, post_id):
-        post = Post.objects.get_post_with_my_votes(post_id, 
+        post = Post.objects.get_post_with_my_votes(post_id,
                     request.user)
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -204,4 +205,5 @@ class CreateProfileView(View):
         return render(request, "registration/create-account.html", {"form": form})
 
 def profile(request, userid):
-    return render(request, "profile.html", context={"user": {"id": userid}})
+    if(request.user):
+        return render(request, "profile.html", context={"user": {"id": userid}})

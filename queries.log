@@ -2129,3 +2129,602 @@ DEBUG 2019-04-09 06:22:34,038 django.db.backends (0.001)
                 WHERE c.post_id = '2'
                 ORDER BY c.wbs
             ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:30:00,586 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:30:00,590 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:30:11,930 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 06:30:13,467 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:30:13,472 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 06:30:13,473 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:30:28,044 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:30:28,047 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:31:19,634 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:31:19,637 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:31:28,691 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:31:28,692 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 06:31:28,693 django.db.backends (0.000) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:31:31,700 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:31:31,702 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:31:47,244 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:31:47,247 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:31:52,890 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:31:52,894 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 06:31:52,896 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:31:59,204 django.db.backends (0.003) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 06:32:42,016 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:32:42,019 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:35:22,574 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:35:22,577 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:35:23,769 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 06:38:10,836 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:38:10,839 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:40:53,426 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:40:53,428 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:40:54,737 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 06:40:56,246 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:40:56,250 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 06:40:56,253 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:41:40,133 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:41:40,137 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 06:41:41,296 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 06:41:41,301 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 06:41:41,303 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 06:43:56,449 django.db.backends (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 06:43:56,452 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:00:33,315 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:00:33,316 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:00:36,409 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:00:36,412 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:00:36,413 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:02:50,384 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:02:50,386 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:02:52,249 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:02:52,254 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:02:52,256 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:03:01,563 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:03:01,565 django.db.backends (0.000) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:04:05,321 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:04:05,322 django.db.backends (0.000) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:08:53,737 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:08:53,739 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:11:22,222 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:11:22,223 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:11:22,224 django.db.backends (0.000) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:11:27,245 django.db.backends (0.003) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:11:27,248 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:11:53,819 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:11:53,821 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:11:57,097 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:11:57,099 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:11:57,100 django.db.backends (0.000) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:12:10,546 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:12:10,548 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:12:13,041 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:12:13,045 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:12:13,047 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:16:50,523 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:16:50,525 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:17:59,351 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:17:59,355 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:17:59,357 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:18:00,235 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 07:18:01,277 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 07:20:12,534 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:20:12,535 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:27:19,918 django.db.backends (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2019-04-09 07:27:19,920 django.db.backends (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2019-04-09 07:35:05,770 django.db.backends (0.001) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 07:35:07,445 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:35:07,449 django.db.backends (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."model" = 'comment' AND "django_content_type"."app_label" = 'discussions'); args=('comment', u'discussions')
+DEBUG 2019-04-09 07:35:07,451 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:35:39,113 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 2; args=(2,)
+DEBUG 2019-04-09 07:35:39,115 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '2'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'2']
+DEBUG 2019-04-09 07:35:41,747 django.db.backends (0.003) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") ORDER BY "posts"."submission_time" DESC LIMIT 50; args=()
+DEBUG 2019-04-09 07:35:43,026 django.db.backends (0.002) SELECT "posts"."id", "posts"."author_id", "posts"."upvotes", "posts"."downvotes", "posts"."flags", "posts"."title", "posts"."url", "posts"."text", "posts"."submission_time", "posts"."num_comments", ("posts"."upvotes" - "posts"."downvotes") AS "score", "users"."id", "users"."password", "users"."last_login", "users"."is_superuser", "users"."username", "users"."first_name", "users"."last_name", "users"."email", "users"."is_staff", "users"."is_active", "users"."date_joined", "users"."score" FROM "posts" INNER JOIN "users" ON ("posts"."author_id" = "users"."id") WHERE "posts"."id" = 1; args=(1,)
+DEBUG 2019-04-09 07:35:43,030 django.db.backends (0.001) 
+                SELECT c.id, c.text, u.id, u.username, c.submission_time,
+                c.wbs, length(c.wbs)/5 as indent, 
+                c.upvotes, c.downvotes, c.flags,
+                c.upvotes - c.downvotes as score,
+                up.is_upvoted, down.is_downvoted
+                FROM comments c 
+                INNER JOIN users u on c.author_id = u.id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_upvoted, v1.object_id as comment_id
+                    FROM votes v1
+                    WHERE v1.content_type_id = 9
+                    AND type_of_vote = 1
+                    AND v1.voter_id = NULL
+                ) up on c.id = up.comment_id
+                LEFT OUTER JOIN (
+                    SELECT 1 as is_downvoted, v2.object_id as comment_id
+                    FROM votes v2
+                    WHERE v2.content_type_id = 9
+                    AND type_of_vote = 2
+                    AND v2.voter_id = NULL
+                ) down on c.id = down.comment_id
+                WHERE c.post_id = '1'
+                ORDER BY c.wbs
+            ; args=[9, None, 9, None, u'1']
