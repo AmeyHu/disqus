@@ -2,8 +2,12 @@
 
 {% block content %}
 <div class="container-fluid">
-<p>Logged out!</p>  
+<p>Logged out!</p>
 
-<a href="{% url 'login'%}">Click here to login again.</a>
+<script>
+  function redirect(){
+      window.location={%url 'login'%}
+  }  setTimeout(1,redirect());
+</script>
 </div>
 {% endblock %}
