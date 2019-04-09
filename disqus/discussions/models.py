@@ -128,7 +128,7 @@ class Votable(models.Model):
         self.author.save(update_fields=["score"])
 
     def _voting_for_myself(self, user):
-        return self.author.id != user.id
+        return self.author.id == user.id
 
     def _already_voted(self, user, content_type, type_of_vote):
         Vote.objects.filter(
