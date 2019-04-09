@@ -16,7 +16,7 @@ Write about your project in this area.
 Create and activate a virtualenv:
 
 ```bash
-virtualenv venv
+    virtualenv venv
 source venv/bin/activate
 ```
 Install dependencies:
